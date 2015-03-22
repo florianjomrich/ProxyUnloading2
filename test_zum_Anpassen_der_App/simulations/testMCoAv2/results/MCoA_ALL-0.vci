@@ -1,15 +1,15 @@
-file 16710676 1427047357                                        
+file 16710676 1427049858                                        
 version 2
-run MCoA_ALL-0-20150322-19:02:29-11529
+run MCoA_ALL-0-20150322-19:44:12-12749
 attr configname MCoA_ALL
-attr datetime 20150322-19:02:29
+attr datetime 20150322-19:44:12
 attr experiment MCoA_ALL
 attr inifile VoIPMCoACN.ini
 attr iterationvars ""
 attr iterationvars2 $repetition=0
 attr measurement ""
 attr network VoIPMCoAMulti
-attr processid 11529
+attr processid 12749
 attr repetition 0
 attr replication #0
 attr resultdir results
