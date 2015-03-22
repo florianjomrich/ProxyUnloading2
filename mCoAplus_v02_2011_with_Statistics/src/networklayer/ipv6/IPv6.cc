@@ -897,14 +897,14 @@ cPacket *IPv6::decapsulate(IPv6Datagram *datagram, bool isTunneled) {
                     datagram->getDestAddress().getIPAdressAsIntegerPart3();
 
             //hahsFunction now! - Knuths Multiplicativ Method - siehe http://stackoverflow.com/questions/664014/what-integer-hash-function-are-good-that-accepts-an-integer-hash-key
-            uint32_t flowSourceAddress0 = ((srcAdressPart0 + sport + dport
-                    + destAdressPart0) * 2654435761) % 2 ^ 32;
-            uint32_t flowSourceAddress1 = ((srcAdressPart1 + sport + dport
-                    + destAdressPart1) * 2654435761) % 2 ^ 32;
-            uint32_t flowSourceAddress2 = ((srcAdressPart2 + sport + dport
-                    + destAdressPart2) * 2654435761) % 2 ^ 32;
-            uint32_t flowSourceAddress3 = ((srcAdressPart3 + sport + dport
-                    + destAdressPart3) * 2654435761) % 2 ^ 32;
+            uint32_t flowSourceAddress0 = srcAdressPart0 + sport + dport
+                    + destAdressPart0;
+            uint32_t flowSourceAddress1 = srcAdressPart1 + sport + dport
+                    + destAdressPart1;
+            uint32_t flowSourceAddress2 = srcAdressPart2 + sport + dport
+                    + destAdressPart2;
+            uint32_t flowSourceAddress3 = srcAdressPart3 + sport + dport
+                    + destAdressPart3;
 
             IPv6Address* flowSourceAddress = new IPv6Address(flowSourceAddress0,
                     flowSourceAddress1, flowSourceAddress2, flowSourceAddress3);
