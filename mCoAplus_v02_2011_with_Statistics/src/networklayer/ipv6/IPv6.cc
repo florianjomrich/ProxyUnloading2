@@ -841,7 +841,7 @@ cPacket *IPv6::decapsulate(IPv6Datagram *datagram, bool isTunneled) {
 }
 
 //PROXY UNLOADING EXTENSION
-/*IPv6ControlInfo* */void IPv6::calculateFlowSourceAddress(
+IPv6Datagram* IPv6::calculateFlowSourceAddress(
         IPv6Datagram *datagram) {
 
 
@@ -849,7 +849,7 @@ cPacket *IPv6::decapsulate(IPv6Datagram *datagram, bool isTunneled) {
     //check first if the src and destination ip adresses are set properly otherwise return and do nothing here
     if( datagram->getDestAddress().isUnspecified()){
         cout<<"@@DEST-ADRESSE WAR UNSPEZIFIZIERT FlowSourceAdresse konnte nicht berechnet werden"<<endl;
-        return;
+        return datagram;
     }
     int protocol2 = datagram->getTransportProtocol();
     if (datagram->getSrcAddress().isUnspecified() && protocol2==IP_PROT_UDP ) {
@@ -939,18 +939,33 @@ cPacket *IPv6::decapsulate(IPv6Datagram *datagram, bool isTunneled) {
                 send(legacyRequestPacket, "uDPControllAppConnection$o");
             }
 
-          /*
-           * IP ADRESSE SO ERSETZEN
-           *
+/**
+ * Replace now the Source-IP-Address of the package if there already exists a connection which has been acknowledged
+ */
+            if(flowBindingTable->entryAlreadyExistsInTable(flowSourceAddress->str().c_str())){
+                IPv6Address* neueSrcAdresse = new IPv6Address(flowSourceAddress->str().c_str());/// ????
+                            datagram->setSrcAddress(*neueSrcAdresse);
+
+                //for the reason when the HomeAgent has to take over the proxying functionality - it should be sent to him not to the CN
+                            IPv6Address* neueDestAdresse = new IPv6Address(flowBindingTable->getFlowBindingEntryFromTable(flowSourceAddress->str().c_str())->getDestAddress());
+                            datagram->setDestAddress(*neueDestAdresse);
+
+            }
+            /*
+                      * IP ADRESSE SO ERSETZEN
+                      */
+            /*
              IPv6Address* neueAdresse = new IPv6Address(flowSourceAddress->str().c_str());/// ????
                datagram->setSrcAddress(*neueAdresse);
            */
 
 
-        }
+        } //only if the ports are set go further END
 
-    }
+    }//only UDP-Protocol is checked currently END
 
+    //Return the IP-Datagram now whether or not the Flow-Source-IP-Adresse got added by the FlowBindingTable
+    return datagram;
 }
 
 IPv6Datagram *IPv6::encapsulate(cPacket *transportPacket,
