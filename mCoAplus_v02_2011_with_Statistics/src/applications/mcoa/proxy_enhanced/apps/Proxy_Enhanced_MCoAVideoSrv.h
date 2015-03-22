@@ -24,6 +24,7 @@
 #include <omnetpp.h>
 #include "MCoAUDPBase.h"
 #include "MCoAVideoStreaming_m.h"
+#include "UDPControlInfo_m.h"
 
 class INET_API Proxy_Enhanced_MCoAVideoSrv : public MCoAUDPBase
 {
@@ -62,7 +63,7 @@ protected:
     //virtual void processStreamRequest(cMessage *msg);
 
     // send a packet of the given video stream
-    virtual void sendStreamData(cMessage *timer);
+    virtual void sendStreamData(UDPControlInfo* myControllInfo);
 
     ///@name Overidden cSimpleModule functions
     //@{

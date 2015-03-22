@@ -20,6 +20,7 @@
 #include "IPAddressResolver.h"
 #include "BindingUpdateInformationtoAPPmessageCN.h"
 #include "RequestVideoStream_m.h"
+#include "VideoMessage_m.h"
 
 #define CN_APP_MESSAGE 50
 #define PROXY_MESSAGE_FROM_CN_TO_MN 51
@@ -127,11 +128,9 @@ void Proxy_Enhanced_MCoAVideoSrv::handleMessage(cMessage *msg)
             //Auslesen der Controll-Informationen - SRC und DEST IP usw. usf. zum Umsetzen des FlowSource_IP-Adressen-Konzeptes
             UDPControlInfo* myControllInfo = check_and_cast<UDPControlInfo*>(msg->getControlInfo());
             IPvXAddress srcIPAdresse = myControllInfo->getSrcAddr();
-            cout<<"MCoASrv received IP-Adress: "<<srcIPAdresse<<endl;
+            cout<<"MCoASrv received Video-Request from SRCIP-Adress: "<<srcIPAdresse<<endl;
             //TODO das hier noch mal fixen, das korrekt Daten gesendet werden dann
-
-            //cMessage *timer = new cMessage("UDPVideoStart");
-            //sendStreamData(timer);
+           sendStreamData(myControllInfo);
         }
 
     }
@@ -139,49 +138,16 @@ void Proxy_Enhanced_MCoAVideoSrv::handleMessage(cMessage *msg)
 
 }
 
-void Proxy_Enhanced_MCoAVideoSrv::sendStreamData(cMessage *timer)
+void Proxy_Enhanced_MCoAVideoSrv::sendStreamData(UDPControlInfo* myControllInfo)
 {
-    //Be careful with statistics if multiple clients exist
-	for (uint i=0; i< streamVector.size();i++){
-		VideoStreamData *videoStreamData = streamVector[i];
-		//VideoStreamData *d = (VideoStreamData *) timer->getContextPointer();
 
-		char msgName[32];
-		sprintf(msgName,"MCoAUDPVIDEO");
+		cout<<"Src Adresse, an die Video geschickt wird: "<<myControllInfo->getSrcAddr()<<endl;
+		IPvXAddress adresse = IPAddressResolver().resolve("MN[0]");
+		VideoMessage* newVideoData = new VideoMessage();
+		newVideoData->setName("Video Datei vom VideoSrv");
+		sendToUDPMCOA(newVideoData, localPort,  adresse ,1000, true); //HIER GIBT ES PROBLEME !!!
 
-		// generate and send a packet
-		//cPacket *pkt = new cPacket("VideoStrmPk");
-		MCoAVideoStreaming *pkt_video = new MCoAVideoStreaming(msgName);
-		long pktLen = packetLen->longValue();
-		if (pktLen > videoStreamData->bytesLeft)
-			pktLen = videoStreamData->bytesLeft;
-		//pkt->setByteLength(pktLen);
-		videoStreamData->seqTx = videoStreamData->seqTx +1;
 
-		pkt_video->setByteLength(pktLen);
-		pkt_video->setCurSeq(videoStreamData->seqTx);
-		pkt_video->setCurTime(simTime().dbl());
 
-		//sendToUDP(pkt, serverPort, d->clientAddr, d->clientPort);
-		sendToUDPMCOA(pkt_video, localPort, videoStreamData->clientAddr, videoStreamData->clientPort, true);
-
-		videoStreamData->bytesLeft -= pktLen;
-		videoStreamData->numPkSent++;
-
-		//Statistics
-		PktSent.record(pkt_video->getCurSeq());
-
-		// reschedule timer if there's bytes left to send
-		if (videoStreamData->bytesLeft!=0)
-		{
-			simtime_t interval = (*waitInterval);
-			scheduleAt(simTime()+interval, timer);
-		}
-		else
-		{
-			delete timer;
-			// TBD find VideoStreamData in streamVector and delete it
-		}
-	}
 }
 

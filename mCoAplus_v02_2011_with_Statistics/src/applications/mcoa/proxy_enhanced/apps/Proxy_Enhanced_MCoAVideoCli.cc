@@ -24,6 +24,7 @@
 #include "IPAddressResolver.h"
 #include "IPv6ControlInfo.h"
 #include "RequestVideoStream_m.h"
+#include "VideoMessage_m.h"
 
 
 #define PROXY_ENHANCED_BU_MESSAGE  42
@@ -92,8 +93,19 @@ void Proxy_Enhanced_MCoAVideoCli::handleMessage(cMessage* msg)
     		receiveStream(PK(msg));
     	}
 
+    	if(dynamic_cast<VideoMessage*>(msg)){
+    	    cout<<"Video Message Received"<<endl;
+    	    IPvXAddress cn = IPAddressResolver().resolve("CN[0]");
+    	    RequestVideoStream* requestVideoStream = new RequestVideoStream();
+    	       requestVideoStream->setName("MCoACli (MN) requests Video Stream from MCoASrv (CN).");
+
+    	       //sendToUDPMCOA(requestVideoStream, localPort, cn, 1000, true);//Port 1000 für Video - Port 2000 für Kontrolldaten)
+    	}
+
     	else{
     	    cout<<"VIDEO CLIENT received: "<<msg->getName()<<endl;
+
+
     	}
     }
 }
@@ -111,7 +123,7 @@ void Proxy_Enhanced_MCoAVideoCli::sendControlData(cMessage* msg){
 void Proxy_Enhanced_MCoAVideoCli::receiveStream(cPacket *msg)
 {
 	MCoAVideoStreaming *pkt_video = (MCoAVideoStreaming *)(msg);
-    //cout << "Video stream packet:\n";
+    cout << "Video stream packet vom Mobile Node empfangen\n";
     int nLost;
 
     nLost = (pkt_video->getCurSeq() - lastSeq);

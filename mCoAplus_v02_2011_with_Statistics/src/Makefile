@@ -533,6 +533,7 @@ OBJS = \
     $O/applications/mcoa/Video/MCoAVideoStreaming_m.o \
     $O/applications/mcoa/VoIP/MCOAVoIPMsg_m.o \
     $O/applications/mcoa/proxy_enhanced/messages/app_messages/RequestVideoStream_m.o \
+    $O/applications/mcoa/proxy_enhanced/messages/app_messages/VideoMessage_m.o \
     $O/applications/mcoa/proxy_enhanced/messages/control_messages/FlowBindingUpdate_m.o \
     $O/applications/mcoa/proxy_enhanced/messages/control_messages/ACK_FlowBindingUpdate_m.o \
     $O/applications/mcoa/proxy_enhanced/messages/control_messages/RequetConnectionToLegacyServer_m.o \
@@ -608,6 +609,7 @@ MSGFILES = \
     applications/mcoa/Video/MCoAVideoStreaming.msg \
     applications/mcoa/VoIP/MCOAVoIPMsg.msg \
     applications/mcoa/proxy_enhanced/messages/app_messages/RequestVideoStream.msg \
+    applications/mcoa/proxy_enhanced/messages/app_messages/VideoMessage.msg \
     applications/mcoa/proxy_enhanced/messages/control_messages/FlowBindingUpdate.msg \
     applications/mcoa/proxy_enhanced/messages/control_messages/ACK_FlowBindingUpdate.msg \
     applications/mcoa/proxy_enhanced/messages/control_messages/RequetConnectionToLegacyServer.msg \
@@ -1059,6 +1061,7 @@ $O/applications/mcoa/proxy_enhanced/apps/Proxy_Enhanced_MCoAVideoCli.o: applicat
 	applications/mcoa/Video/MCoAVideoStreaming_m.h \
 	applications/mcoa/proxy_enhanced/apps/Proxy_Enhanced_MCoAVideoCli.h \
 	applications/mcoa/proxy_enhanced/messages/app_messages/RequestVideoStream_m.h \
+	applications/mcoa/proxy_enhanced/messages/app_messages/VideoMessage_m.h \
 	applications/mcoa/udpbase/MCoAUDPBase.h \
 	base/INETDefs.h \
 	base/INotifiable.h \
@@ -1104,6 +1107,7 @@ $O/applications/mcoa/proxy_enhanced/apps/Proxy_Enhanced_MCoAVideoSrv.o: applicat
 	applications/mcoa/Video/MCoAVideoStreaming_m.h \
 	applications/mcoa/proxy_enhanced/apps/Proxy_Enhanced_MCoAVideoSrv.h \
 	applications/mcoa/proxy_enhanced/messages/app_messages/RequestVideoStream_m.h \
+	applications/mcoa/proxy_enhanced/messages/app_messages/VideoMessage_m.h \
 	applications/mcoa/udpbase/MCoAUDPBase.h \
 	base/INETDefs.h \
 	base/INotifiable.h \
@@ -1151,6 +1155,8 @@ $O/applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTa
 	networklayer/contract/IPv6Address.h
 $O/applications/mcoa/proxy_enhanced/messages/app_messages/RequestVideoStream_m.o: applications/mcoa/proxy_enhanced/messages/app_messages/RequestVideoStream_m.cc \
 	applications/mcoa/proxy_enhanced/messages/app_messages/RequestVideoStream_m.h
+$O/applications/mcoa/proxy_enhanced/messages/app_messages/VideoMessage_m.o: applications/mcoa/proxy_enhanced/messages/app_messages/VideoMessage_m.cc \
+	applications/mcoa/proxy_enhanced/messages/app_messages/VideoMessage_m.h
 $O/applications/mcoa/proxy_enhanced/messages/control_messages/ACK_FlowBindingUpdate_m.o: applications/mcoa/proxy_enhanced/messages/control_messages/ACK_FlowBindingUpdate_m.cc \
 	applications/mcoa/proxy_enhanced/messages/control_messages/ACK_FlowBindingUpdate_m.h
 $O/applications/mcoa/proxy_enhanced/messages/control_messages/ACK_RequestConnectionToLegacyServer_m.o: applications/mcoa/proxy_enhanced/messages/control_messages/ACK_RequestConnectionToLegacyServer_m.cc \

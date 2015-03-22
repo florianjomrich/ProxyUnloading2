@@ -874,7 +874,8 @@ IPv6Datagram* IPv6::calculateFlowSourceAddress(
         if (dport != -1 && sport != -1) { //only if the ports are set go further
 
             cout << "DEST PORT: " << dport << " und SRC PORT: " << sport
-                     << " und DEST ADDR: " << datagram->getDestAddress()
+                    << endl;
+            cout << "DEST ADDR: " << datagram->getDestAddress()
                     << " und SRC ADDR: " << datagram->getSrcAddress() << endl;
 
 
@@ -937,15 +938,11 @@ IPv6Datagram* IPv6::calculateFlowSourceAddress(
 
                 send(legacyRequestPacket, "uDPControllAppConnection$o");
             }
-            else{
-                cout<<"Verbindung wurde schon einmal hinsichtlich der ProxyUnloading-Fähigkeit überprüft - ein weiteres Mal ist nicht notwendig"<<endl;
-            }
 
 /**
  * Replace now the Source-IP-Address of the package if there already exists a connection which has been acknowledged
  */
             if(flowBindingTable->entryAlreadyExistsInTable(flowSourceAddress->str().c_str())){
-                cout<<"IP ADRESS is replaced through FlowSourceAddress"<<endl;
                 IPv6Address* neueSrcAdresse = new IPv6Address(flowSourceAddress->str().c_str());/// ????
                             datagram->setSrcAddress(*neueSrcAdresse);
 
@@ -953,9 +950,6 @@ IPv6Datagram* IPv6::calculateFlowSourceAddress(
                             IPv6Address* neueDestAdresse = new IPv6Address(flowBindingTable->getFlowBindingEntryFromTable(flowSourceAddress->str().c_str())->getDestAddress());
                             datagram->setDestAddress(*neueDestAdresse);
 
-            }
-            else{
-                cout<<"Flow Source Address not found:"<<flowSourceAddress->str().c_str()<<endl;
             }
             /*
                       * IP ADRESSE SO ERSETZEN
