@@ -145,7 +145,7 @@ void Proxy_Enhanced_MCoAVideoSrv::sendStreamData(UDPControlInfo* myControllInfo)
 		IPvXAddress adresse = IPAddressResolver().resolve("MN[0]");
 		VideoMessage* newVideoData = new VideoMessage();
 		newVideoData->setName("Video Datei vom VideoSrv");
-		sendToUDPMCOA(newVideoData, localPort,  adresse ,1000, true); //HIER GIBT ES PROBLEME !!!
+//		sendToUDPMCOA(newVideoData, localPort,  adresse ,1000, true); //HIER GIBT ES PROBLEME !!!
 
 
 
