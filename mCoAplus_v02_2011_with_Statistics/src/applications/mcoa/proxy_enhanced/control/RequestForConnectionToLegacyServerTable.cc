@@ -32,10 +32,16 @@ RequestForConnectionToLegacyServerTable::~RequestForConnectionToLegacyServerTabl
 bool RequestForConnectionToLegacyServerTable::containsRequestAlready(int& dport,int& sport,IPv6Address& destAddress,IPv6Address& srcAddress,IPv6Address* flowSourceAddress){
     const bool destinationPortExists = this->destinationPorts.find(dport) != destinationPorts.end();
     const bool sourcePortExists = this->sourcePorts.find(sport) != sourcePorts.end();
+    const bool destinationAddressExists = this->destinationAddresses.find(destAddress) != destinationAddresses.end();
+    const bool sourceAddressExists = this->sourceAddresses.find(srcAddress) != sourceAddresses.end();
+    const bool flowSourceAddressExists = this->flowSourceAddresses.find(*flowSourceAddress) != flowSourceAddresses.end();
 
-    return destinationPortExists && sourcePortExists;
+    return destinationPortExists && sourcePortExists && destinationAddressExists && sourceAddressExists && flowSourceAddressExists;
 }
 void RequestForConnectionToLegacyServerTable::setRequest(int& dport,int& sport,IPv6Address& destAddress,IPv6Address& srcAddress,IPv6Address* flowSourceAddress){
     destinationPorts.insert(dport);
     sourcePorts.insert(sport);
+    destinationAddresses.insert(destAddress);
+    sourceAddresses.insert(srcAddress);
+    flowSourceAddresses.insert(*flowSourceAddress);
 }

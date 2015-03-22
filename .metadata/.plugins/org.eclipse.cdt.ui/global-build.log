@@ -40,3 +40,219 @@ cd src && make
 make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
 Creating executable: ../out/gcc-debug//src/test_zum_Anpassen_der_App
 make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+18:29:30 **** Incremental Build of configuration gcc-debug for project mCoAplus_v02_2011_with_Statistics ****
+make MODE=debug CONFIGNAME=gcc-debug all 
+cd src && make
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/mCoAplus_v02_2011_with_Statistics/src'
+applications/mcoa/proxy_enhanced/modules/FlowBindingTable.cc
+networklayer/ipv6/IPv6.cc
+In file included from networklayer/ipv6/IPv6.h:38:0,
+                 from networklayer/ipv6/IPv6.cc:20:
+applications/mcoa/proxy_enhanced/modules/FlowBindingTableAccess.h:23:16: warning: extra tokens at end of #ifndef directive [enabled by default]
+ #ifndef __FLOW BINDING TABLE ACCESS_H__
+                ^
+networklayer/ipv6/IPv6.cc: In member function ‘virtual void IPv6::isLocalAddress(IPv6Datagram*, bool)’:
+networklayer/ipv6/IPv6.cc:670:33: warning: unused variable ‘neueAdresse’ [-Wunused-variable]
+                    IPv6Address* neueAdresse = new IPv6Address("1111:111::1111:111");/// ????
+                                 ^
+Creating shared library: ../out/gcc-debug/src/libinet.so
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/mCoAplus_v02_2011_with_Statistics/src'
+18:29:34 **** Incremental Build of configuration gcc-debug for project testMCoA_v2_2011 ****
+make MODE=debug CONFIGNAME=gcc-debug all 
+cd src && opp_makemake -f --deep
+Creating Makefile in /home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src...
+Makefile created, running "make depend" to add dependencies...
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+Creating dependencies...
+opp_makedep: warning: no input files
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+cd src && make
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+Creating executable: ../out/gcc-debug//src/testMCoA_v2_2011
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+18:29:35 **** Incremental Build of configuration gcc-debug for project test_zum_Anpassen_der_App ****
+make MODE=debug CONFIGNAME=gcc-debug all 
+cd src && opp_makemake -f --deep
+Creating Makefile in /home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src...
+Makefile created, running "make depend" to add dependencies...
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+Creating dependencies...
+opp_makedep: warning: no input files
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+cd src && make
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+Creating executable: ../out/gcc-debug//src/test_zum_Anpassen_der_App
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+18:39:10 **** Incremental Build of configuration gcc-debug for project mCoAplus_v02_2011_with_Statistics ****
+make MODE=debug CONFIGNAME=gcc-debug all 
+cd src && make
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/mCoAplus_v02_2011_with_Statistics/src'
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc: In member function ‘virtual bool RequestForConnectionToLegacyServerTable::containsRequestAlready(int&, int&, IPv6Address&, IPv6Address&, IPv6Address*)’:
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc:35:116: error: request for member ‘end’ in ‘destinationAddressExists’, which is of non-class type ‘const bool’
+     const bool destinationAddressExists = this->destinationAddresses.find(destAddress) != destinationAddressExists.end();
+                                                                                                                    ^
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc:36:100: error: request for member ‘end’ in ‘sourceAddressExists’, which is of non-class type ‘const bool’
+     const bool sourceAddressExists = this->sourceAddresses.find(srcAddress) != sourceAddressExists.end();
+                                                                                                    ^
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc:37:95: error: request for member ‘end’ in ‘flowSourceAddressExists’, which is of non-class type ‘const bool’
+     const bool flowSourceAddressExists = this->flowSourceAddresses != flowSourceAddressExists.end();
+                                                                                               ^
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/mCoAplus_v02_2011_with_Statistics/src'
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc: In member function ‘virtual void RequestForConnectionToLegacyServerTable::setRequest(int&, int&, IPv6Address&, IPv6Address&, IPv6Address*)’:
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc:46:49: error: no matching function for call to ‘std::set<IPv6Address>::insert(IPv6Address*&)’
+     flowSourceAddresses.insert(flowSourceAddress);
+                                                 ^
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc:46:49: note: candidates are:
+In file included from /usr/include/c++/4.8/set:61:0,
+                 from /home/ubuntu/omnetpp-4.4.1/include/ccomponenttype.h:21,
+                 from /home/ubuntu/omnetpp-4.4.1/include/omnetpp.h:26,
+                 from networklayer/contract/IPv6Address.h:23,
+                 from applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.h:19,
+                 from applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc:20:
+/usr/include/c++/4.8/bits/stl_set.h:460:7: note: std::pair<typename std::_Rb_tree<_Key, _Key, std::_Identity<_Key>, _Compare, typename _Alloc::rebind<_Key>::other>::const_iterator, bool> std::set<_Key, _Compare, _Alloc>::insert(const value_type&) [with _Key = IPv6Address; _Compare = std::less<IPv6Address>; _Alloc = std::allocator<IPv6Address>; typename std::_Rb_tree<_Key, _Key, std::_Identity<_Key>, _Compare, typename _Alloc::rebind<_Key>::other>::const_iterator = std::_Rb_tree_const_iterator<IPv6Address>; std::set<_Key, _Compare, _Alloc>::value_type = IPv6Address]
+       insert(const value_type& __x)
+       ^
+/usr/include/c++/4.8/bits/stl_set.h:460:7: note:   no known conversion for argument 1 from ‘IPv6Address*’ to ‘const value_type& {aka const IPv6Address&}’
+/usr/include/c++/4.8/bits/stl_set.h:497:7: note: std::set<_Key, _Compare, _Alloc>::iterator std::set<_Key, _Compare, _Alloc>::insert(std::set<_Key, _Compare, _Alloc>::const_iterator, const value_type&) [with _Key = IPv6Address; _Compare = std::less<IPv6Address>; _Alloc = std::allocator<IPv6Address>; std::set<_Key, _Compare, _Alloc>::iterator = std::_Rb_tree_const_iterator<IPv6Address>; std::set<_Key, _Compare, _Alloc>::const_iterator = std::_Rb_tree_const_iterator<IPv6Address>; std::set<_Key, _Compare, _Alloc>::value_type = IPv6Address]
+       insert(const_iterator __position, const value_type& __x)
+       ^
+/usr/include/c++/4.8/bits/stl_set.h:497:7: note:   candidate expects 2 arguments, 1 provided
+/usr/include/c++/4.8/bits/stl_set.h:517:2: note: template<class _InputIterator> void std::set<_Key, _Compare, _Alloc>::insert(_InputIterator, _InputIterator) [with _InputIterator = _InputIterator; _Key = IPv6Address; _Compare = std::less<IPv6Address>; _Alloc = std::allocator<IPv6Address>]
+  insert(_InputIterator __first, _InputIterator __last)
+  ^
+/usr/include/c++/4.8/bits/stl_set.h:517:2: note:   template argument deduction/substitution failed:
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc:46:49: note:   candidate expects 2 arguments, 1 provided
+     flowSourceAddresses.insert(flowSourceAddress);
+                                                 ^
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc: In member function ‘virtual bool RequestForConnectionToLegacyServerTable::containsRequestAlready(int&, int&, IPv6Address&, IPv6Address&, IPv6Address*)’:
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc:40:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+make[1]: *** [../out/gcc-debug/src/applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.o] Fehler 1
+make: *** [all] Fehler 2
+18:39:10 **** Incremental Build of configuration gcc-debug for project testMCoA_v2_2011 ****
+make MODE=debug CONFIGNAME=gcc-debug all 
+cd src && opp_makemake -f --deep
+Creating Makefile in /home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src...
+Makefile created, running "make depend" to add dependencies...
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+Creating dependencies...
+opp_makedep: warning: no input files
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+cd src && make
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+Creating executable: ../out/gcc-debug//src/testMCoA_v2_2011
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+18:39:11 **** Incremental Build of configuration gcc-debug for project test_zum_Anpassen_der_App ****
+make MODE=debug CONFIGNAME=gcc-debug all 
+cd src && opp_makemake -f --deep
+Creating Makefile in /home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src...
+Makefile created, running "make depend" to add dependencies...
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+Creating dependencies...
+opp_makedep: warning: no input files
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+cd src && make
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+Creating executable: ../out/gcc-debug//src/test_zum_Anpassen_der_App
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+18:40:21 **** Incremental Build of configuration gcc-debug for project mCoAplus_v02_2011_with_Statistics ****
+make MODE=debug CONFIGNAME=gcc-debug all 
+cd src && make
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/mCoAplus_v02_2011_with_Statistics/src'
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc: In member function ‘virtual bool RequestForConnectionToLegacyServerTable::containsRequestAlready(int&, int&, IPv6Address&, IPv6Address&, IPv6Address*)’:
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc:37:90: error: no matching function for call to ‘std::set<IPv6Address>::find(IPv6Address*&)’
+     const bool flowSourceAddressExists = this->flowSourceAddresses.find(flowSourceAddress) != flowSourceAddresses.end();
+                                                                                          ^
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc:37:90: note: candidates are:
+In file included from /usr/include/c++/4.8/set:61:0,
+                 from /home/ubuntu/omnetpp-4.4.1/include/ccomponenttype.h:21,
+                 from /home/ubuntu/omnetpp-4.4.1/include/omnetpp.h:26,
+                 from networklayer/contract/IPv6Address.h:23,
+                 from applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.h:19,
+                 from applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc:20:
+/usr/include/c++/4.8/bits/stl_set.h:662:7: note: std::set<_Key, _Compare, _Alloc>::iterator std::set<_Key, _Compare, _Alloc>::find(const key_type&) [with _Key = IPv6Address; _Compare = std::less<IPv6Address>; _Alloc = std::allocator<IPv6Address>; std::set<_Key, _Compare, _Alloc>::iterator = std::_Rb_tree_const_iterator<IPv6Address>; std::set<_Key, _Compare, _Alloc>::key_type = IPv6Address]
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/mCoAplus_v02_2011_with_Statistics/src'
+       find(const key_type& __x)
+       ^
+/usr/include/c++/4.8/bits/stl_set.h:662:7: note:   no known conversion for argument 1 from ‘IPv6Address*’ to ‘const key_type& {aka const IPv6Address&}’
+/usr/include/c++/4.8/bits/stl_set.h:666:7: note: std::set<_Key, _Compare, _Alloc>::const_iterator std::set<_Key, _Compare, _Alloc>::find(const key_type&) const [with _Key = IPv6Address; _Compare = std::less<IPv6Address>; _Alloc = std::allocator<IPv6Address>; std::set<_Key, _Compare, _Alloc>::const_iterator = std::_Rb_tree_const_iterator<IPv6Address>; std::set<_Key, _Compare, _Alloc>::key_type = IPv6Address]
+       find(const key_type& __x) const
+       ^
+/usr/include/c++/4.8/bits/stl_set.h:666:7: note:   no known conversion for argument 1 from ‘IPv6Address*’ to ‘const key_type& {aka const IPv6Address&}’
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc:40:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+make[1]: *** [../out/gcc-debug/src/applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.o] Fehler 1
+make: *** [all] Fehler 2
+18:40:22 **** Incremental Build of configuration gcc-debug for project testMCoA_v2_2011 ****
+make MODE=debug CONFIGNAME=gcc-debug all 
+cd src && opp_makemake -f --deep
+Creating Makefile in /home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src...
+Makefile created, running "make depend" to add dependencies...
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+Creating dependencies...
+opp_makedep: warning: no input files
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+cd src && make
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+Creating executable: ../out/gcc-debug//src/testMCoA_v2_2011
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+18:40:22 **** Incremental Build of configuration gcc-debug for project test_zum_Anpassen_der_App ****
+make MODE=debug CONFIGNAME=gcc-debug all 
+cd src && opp_makemake -f --deep
+Creating Makefile in /home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src...
+Makefile created, running "make depend" to add dependencies...
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+Creating dependencies...
+opp_makedep: warning: no input files
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+cd src && make
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+Creating executable: ../out/gcc-debug//src/test_zum_Anpassen_der_App
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+18:40:41 **** Incremental Build of configuration gcc-debug for project mCoAplus_v02_2011_with_Statistics ****
+make MODE=debug CONFIGNAME=gcc-debug all 
+cd src && make
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/mCoAplus_v02_2011_with_Statistics/src'
+applications/mcoa/proxy_enhanced/control/RequestForConnectionToLegacyServerTable.cc
+networklayer/ipv6/IPv6.cc
+In file included from networklayer/ipv6/IPv6.h:38:0,
+                 from networklayer/ipv6/IPv6.cc:20:
+applications/mcoa/proxy_enhanced/modules/FlowBindingTableAccess.h:23:16: warning: extra tokens at end of #ifndef directive [enabled by default]
+ #ifndef __FLOW BINDING TABLE ACCESS_H__
+                ^
+networklayer/ipv6/IPv6.cc: In member function ‘virtual void IPv6::isLocalAddress(IPv6Datagram*, bool)’:
+networklayer/ipv6/IPv6.cc:670:33: warning: unused variable ‘neueAdresse’ [-Wunused-variable]
+                    IPv6Address* neueAdresse = new IPv6Address("1111:111::1111:111");/// ????
+                                 ^
+Creating shared library: ../out/gcc-debug/src/libinet.so
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/mCoAplus_v02_2011_with_Statistics/src'
+18:40:46 **** Incremental Build of configuration gcc-debug for project testMCoA_v2_2011 ****
+make MODE=debug CONFIGNAME=gcc-debug all 
+cd src && opp_makemake -f --deep
+Creating Makefile in /home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src...
+Makefile created, running "make depend" to add dependencies...
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+Creating dependencies...
+opp_makedep: warning: no input files
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+cd src && make
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+Creating executable: ../out/gcc-debug//src/testMCoA_v2_2011
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/testMCoA_v2_2011/src'
+18:40:46 **** Incremental Build of configuration gcc-debug for project test_zum_Anpassen_der_App ****
+make MODE=debug CONFIGNAME=gcc-debug all 
+cd src && opp_makemake -f --deep
+Creating Makefile in /home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src...
+Makefile created, running "make depend" to add dependencies...
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+Creating dependencies...
+opp_makedep: warning: no input files
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+cd src && make
+make[1]: Betrete Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'
+Creating executable: ../out/gcc-debug//src/test_zum_Anpassen_der_App
+make[1]: Verlasse Verzeichnis '/home/ubuntu/ProxyUnloading2/test_zum_Anpassen_der_App/src'

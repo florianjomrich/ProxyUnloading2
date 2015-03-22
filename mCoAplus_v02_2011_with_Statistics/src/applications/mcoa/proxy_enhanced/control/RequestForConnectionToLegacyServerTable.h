@@ -22,6 +22,9 @@ class RequestForConnectionToLegacyServerTable {
 public:
     std::set<int> destinationPorts;
     std::set<int> sourcePorts;
+    std::set<IPv6Address> destinationAddresses;
+    std::set<IPv6Address> sourceAddresses;
+    std::set<IPv6Address> flowSourceAddresses;
 
 
     RequestForConnectionToLegacyServerTable();

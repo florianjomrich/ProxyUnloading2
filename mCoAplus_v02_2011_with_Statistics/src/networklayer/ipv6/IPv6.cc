@@ -117,6 +117,7 @@ void IPv6::endService(cPacket *msg) {
         cout<<"The network layer of CN inserts a new entry into it's FlowBindingTable"<<endl;
         RequetConnectionToLegacyServer* newFlowBindingEntryMessage = check_and_cast<
                                RequetConnectionToLegacyServer *>(msg);
+
         flowBindingTable->insertNewFlowBindingEntry(newFlowBindingEntryMessage);
         flowBindingTable->getFlowBindingEntryFromTable(newFlowBindingEntryMessage->getFlowSourceAddress());
         return;
