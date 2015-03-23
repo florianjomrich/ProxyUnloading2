@@ -184,6 +184,10 @@ void MCoAUDPBase::sendToUDPMCOA(cPacket *msg, int srcPort, const IPvXAddress& de
     		std::vector<AdrInfo>::iterator it;
 
 			for (it=adrsAvailable.begin(); it < adrsAvailable.end(); it++){
+
+			    cout<<"isMN/isCN"<<isMN<<isCN<<" Dest Adresse: "<<it->mDest<<" Source Adresse: "<<it->mSrc<<endl;//TEST
+
+
 				if (it->deleted) {
 					cout << "MCoAUDPBase Socket id  " << it->sockID << " with pairs (" << it->mSrc  << "," << it->mDest << ") is marked has deleted, deleting message." << endl;
 					//cancelAndDelete(msg);
@@ -204,12 +208,12 @@ void MCoAUDPBase::sendToUDPMCOA(cPacket *msg, int srcPort, const IPvXAddress& de
 						cout << "MCoAUDPBase in Sending node duplicating message for source adr " << it->mSrc << endl;
 							//Please note dup objects need to add controlinfo.
 						if(!isMN){
-						    sendToUDP(msg1, it->mSrc, srcPort, it->mDest, destPort , true);
+						    sendToUDP(msg, it->mSrc, srcPort, it->mDest, destPort , true);
 						}
-						if(isMN){
-						    sendToUDP(msg1, it->mSrc, srcPort, destAddr, destPort , true);
+						else{
+						    sendToUDP(msg, it->mSrc, srcPort, destAddr, destPort , true);
 						}
-							sentMsg= true;
+						    sentMsg= true;
 						}
 					}
 				}
@@ -268,7 +272,7 @@ void MCoAUDPBase::TrysendToUDPMCOA(cPacket *msg, int srcPort, const IPvXAddress&
 		msg->setControlInfo(ctrl);
 		//cout<<"CONTROL INFO HINZUFÜGEN: "<<msg->getName()<<endl;
 	}
-	EV << "Sending packet: ";
+	cout << "Sending packet: ";
 	printPacket(msg);
 
 	send(msg, "udpOut");
@@ -333,7 +337,8 @@ void MCoAUDPBase::receiveChangeNotification(int category, const cPolymorphic *de
 
 	if (category==NF_IPv6_TUNNEL_ADDED)
 	{
-		cout << "NEW address obtained by MN/HA/CN "<<isMN<<isHA<<isCN<<": " << adrInfo->getEntry().str().c_str() << endl;
+	    cout<<"IP Tunnel hinzugefügt"<<endl;
+		cout << "NEW address obtained by MN/HA/CN "<<isMN<<isHA<<isCN<<":  Entry:" << adrInfo->getEntry().str().c_str() <<" Exit:"<<adrInfo->getExit().str().c_str()<< endl;
 		if (!isAdrInVec(adraux)){
 			adrsAvailable.push_back(adraux);
 			lenAdrs++;
@@ -436,10 +441,10 @@ MCoAUDPBase::AdrInfo MCoAUDPBase::initRecAdr(IPvXAddress Src, IPvXAddress Dest )
 void MCoAUDPBase::treatMessage(cMessage *msg)
 {
 	if (msg->getKind() == MK_REMOVE_ADDRESS_PAIR ){
-		EV << "MCoAUDPApp application receiving delete pair message"<< endl;
+		cout << "MCoAUDPApp application receiving delete pair message"<< endl;
 		MCoAUDPBase::AdrInfo * adraux = (MCoAUDPBase::AdrInfo *)msg->getContextPointer();
 		//MCoAUDPBase::unBindPort(localPort, adraux->mSrc, adraux->sockID ); // See MCoAUDPBase comment
-		EV << "MCoAUDPApp application performing unbind of socket " << adraux->sockID << " at simTime " << simTime() << endl;
+		cout << "MCoAUDPApp application performing unbind of socket " << adraux->sockID << " at simTime " << simTime() << endl;
 		MCoAUDPBase::delAdrInVec(*adraux);
 
 		delete msg;

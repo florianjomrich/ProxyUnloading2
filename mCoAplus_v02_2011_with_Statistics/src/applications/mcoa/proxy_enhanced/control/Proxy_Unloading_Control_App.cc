@@ -218,7 +218,7 @@ void Proxy_Unloading_Control_App::handleMessage(cMessage* msg) {
 
                 IPvXAddress ha = IPAddressResolver().resolve("HA");
                 IPvXAddress* dest = new IPvXAddress(messageFromMN->getDestAddress());
-                cout<<"Home Address: "<<ha<<" Destination Address: "<<dest<< endl;
+                cout<<"Home Address: "<<ha<<" Destination Address: "<<*dest<< endl;
                 if(messageFromMN->getWasSendFromHA()){//do not foreward self message --> otherwise infinite loop
                     sendToUDPMCOA(flowBindingUpdateToCN,localPort,*dest,2000,true);
                 return;
