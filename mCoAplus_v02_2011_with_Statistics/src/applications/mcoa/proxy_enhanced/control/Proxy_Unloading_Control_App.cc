@@ -114,10 +114,14 @@ void Proxy_Unloading_Control_App::handleMessage(cMessage* msg) {
                 IPvXAddress* cn = new IPvXAddress(
                         messageToCN->getDestAddress());
                 messageToCN->removeControlInfo(); //new ipv6 control info of the home Agent is needed to send the data properly to the correspondent node
+
                 sendToUDPMCOA(messageToCN, localPort, *cn, 2000, true);
+
+                cout<<"ProxyUnloadingHA-SimTime: "<<simTime()<<endl;
                 return;
             }
             if (isCN) {
+                cout<<"ProxyUnloadingCN-SimTime: "<<simTime()<<endl;
                 RequetConnectionToLegacyServer* messageFromHA = check_and_cast<
                         RequetConnectionToLegacyServer *>(msg);
                 cout << "Nun hat auch der CN mit der Adresse:"

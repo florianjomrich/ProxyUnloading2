@@ -99,7 +99,7 @@ void Proxy_Enhanced_MCoAVideoCli::handleMessage(cMessage* msg)
     	    RequestVideoStream* requestVideoStream = new RequestVideoStream();
     	       requestVideoStream->setName("MCoACli (MN) requests Video Stream from MCoASrv (CN).");
 
-    	       //sendToUDPMCOA(requestVideoStream, localPort, cn, 1000, true);//Port 1000 für Video - Port 2000 für Kontrolldaten)
+    	       sendToUDPMCOA(requestVideoStream, localPort, cn, 1000, true);//Port 1000 für Video - Port 2000 für Kontrolldaten)
     	}
 
     	else{

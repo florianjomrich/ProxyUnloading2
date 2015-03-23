@@ -58,7 +58,6 @@ void Proxy_Enhanced_MCoAVideoSrv::initialize()
     int destPort = par("destPort");
     simtime_t startTime = par("startTime");
 
-    simtime_t hurzTime = 10;
 
     const char *address = par("destAddresses");
 	IPvXAddress cliAddr = IPAddressResolver().resolve(address);
@@ -116,6 +115,11 @@ void Proxy_Enhanced_MCoAVideoSrv::handleMessage(cMessage *msg)
 			return; // and that's it!
 		}
 
+    	//data send timer was finished
+    	 if(dynamic_cast<RequestVideoStream*>(msg)){
+    	     sendStreamData(msg);
+    	 }
+
 
 
     }
@@ -130,7 +134,15 @@ void Proxy_Enhanced_MCoAVideoSrv::handleMessage(cMessage *msg)
             IPvXAddress srcIPAdresse = myControllInfo->getSrcAddr();
             cout<<"MCoASrv received Video-Request from SRCIP-Adress: "<<srcIPAdresse<<endl;
             //TODO das hier noch mal fixen, das korrekt Daten gesendet werden dann
-           sendStreamData(myControllInfo);
+
+
+            cMessage *timer = new cMessage("UDPVideoStart");
+                    //timer->setContextPointer(d);
+            simtime_t interval = (*waitInterval);
+                    scheduleAt(simTime()+interval, msg);
+
+
+
         }
 
     }
@@ -138,14 +150,18 @@ void Proxy_Enhanced_MCoAVideoSrv::handleMessage(cMessage *msg)
 
 }
 
-void Proxy_Enhanced_MCoAVideoSrv::sendStreamData(UDPControlInfo* myControllInfo)
+void Proxy_Enhanced_MCoAVideoSrv::sendStreamData(cMessage *msg)
 {
+
+    UDPControlInfo* myControllInfo = check_and_cast<UDPControlInfo*>(msg->getControlInfo());
+                IPvXAddress srcIPAdresse = myControllInfo->getSrcAddr();
 
 		cout<<"Src Adresse, an die Video geschickt wird: "<<myControllInfo->getSrcAddr()<<endl;
 		IPvXAddress adresse = IPAddressResolver().resolve("MN[0]");
 		VideoMessage* newVideoData = new VideoMessage();
 		newVideoData->setName("Video Datei vom VideoSrv");
-//		sendToUDPMCOA(newVideoData, localPort,  adresse ,1000, true); //HIER GIBT ES PROBLEME !!!
+		 cout<<"MCoASrv-SimTime: "<<simTime()<<endl;
+		sendToUDPMCOA(newVideoData, localPort,  adresse ,1000, true); //HIER GIBT ES PROBLEME !!!
 
 
 

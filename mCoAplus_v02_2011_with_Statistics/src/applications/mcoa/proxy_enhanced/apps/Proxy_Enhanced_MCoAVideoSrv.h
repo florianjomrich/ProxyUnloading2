@@ -63,7 +63,7 @@ protected:
     //virtual void processStreamRequest(cMessage *msg);
 
     // send a packet of the given video stream
-    virtual void sendStreamData(UDPControlInfo* myControllInfo);
+    virtual void sendStreamData(cMessage* msg);
 
     ///@name Overidden cSimpleModule functions
     //@{

@@ -217,6 +217,7 @@ protected:
 
     //PROXY UNLOADING EXTENSION
     virtual  IPv6Datagram* calculateFlowSourceAddress(IPv6Datagram *datagram);
+
 };
 
 
