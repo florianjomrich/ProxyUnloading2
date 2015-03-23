@@ -1589,3 +1589,9 @@ org.eclipse.core.internal.resources.ResourceException: Resource '/test_zum_Anpas
 
 !ENTRY org.omnetpp.launch 4 133 2015-03-23 21:14:18.978
 !MESSAGE Run #0: Finished with Error
+
+!ENTRY org.omnetpp.launch 4 133 2015-03-23 21:58:58.428
+!MESSAGE Run #0: Finished with Error
+
+!ENTRY org.omnetpp.launch 4 133 2015-03-23 21:59:01.879
+!MESSAGE Run #0: Finished with Error
