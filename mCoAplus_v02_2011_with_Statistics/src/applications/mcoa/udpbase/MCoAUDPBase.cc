@@ -56,6 +56,11 @@ void MCoAUDPBase::startMCoAUDPBase()
 	lenAdrs=0;
 
 
+	//PROXY UNLOADING
+	isCN = par("isCN");
+	isMN = par("isMN");
+	isHA = par("isHA");
+
 
 	setUseMode(par("useMode"));
 
@@ -159,7 +164,7 @@ void MCoAUDPBase::sendToUDPMCOA(cPacket *msg, int srcPort, const IPvXAddress& de
 
     AdrInfo auxadr;
 
-    if (!useMCoA || lenAdrs == 0) {
+    if (!useMCoA || lenAdrs == 0) { // || isMN //VERSUCH den MN direkt senden zu lassen ????
     	/*if (appendCtrlInfo){
 			UDPControlInfo *ctrl = new UDPControlInfo();
 			ctrl->setSrcPort(srcPort);
@@ -180,25 +185,25 @@ void MCoAUDPBase::sendToUDPMCOA(cPacket *msg, int srcPort, const IPvXAddress& de
 
 			for (it=adrsAvailable.begin(); it < adrsAvailable.end(); it++){
 				if (it->deleted) {
-					EV << "MCoAUDPBase Socket id  " << it->sockID << " with pairs (" << it->mSrc  << "," << it->mDest << ") is marked has deleted, deleting message." << endl;
+					cout << "MCoAUDPBase Socket id  " << it->sockID << " with pairs (" << it->mSrc  << "," << it->mDest << ") is marked has deleted, deleting message." << endl;
 					//cancelAndDelete(msg);
 					//delete(msg);
 					continue;
 				}else {
 					if (it->mDest == destAddr){
 						cPacket *msg1 = msg->dup();
-						EV << "MCoAUDPBase duplicating message for adr " << it->mSrc << endl;
+						cout << "MCoAUDPBase duplicating message for adr " << it->mSrc << endl;
 						//Please note dup objects need to add controlinfo.
 						sendToUDP(msg1, it->mSrc, srcPort, destAddr, destPort , true);
 						sentMsg= true;
 					}else {
-						EV << "MCoAUDPBase destination address differs " << it->mDest << " from conf. destAddress  " << destAddr << endl;
+						cout << "MCoAUDPBase destination address differs " << it->mDest << " from conf. destAddress  " << destAddr << endl;
 
 						if (!isDestiny){ // Sender can be single-homed
 							cPacket *msg1 = msg->dup();
-						EV << "MCoAUDPBase in Sending node duplicating message for source adr " << it->mSrc << endl;
+						cout << "MCoAUDPBase in Sending node duplicating message for source adr " << it->mSrc << endl;
 							//Please note dup objects need to add controlinfo.
-							sendToUDP(msg1, it->mSrc, srcPort, it->mDest, destPort , true);
+						    sendToUDP(msg1, it->mSrc, srcPort, it->mDest, destPort , true);
 							sentMsg= true;
 						}
 					}
@@ -206,7 +211,7 @@ void MCoAUDPBase::sendToUDPMCOA(cPacket *msg, int srcPort, const IPvXAddress& de
 
 			}
 			if (!sentMsg){
-				EV << "All the addresses were marked as deleted ! trying a standard send" << endl;
+				cout << "All the addresses were marked as deleted ! trying a standard send" << endl;
 				TrysendToUDPMCOA(msg,  srcPort, destAddr, destPort , appendCtrlInfo);
 			}
     	}else {
@@ -323,25 +328,25 @@ void MCoAUDPBase::receiveChangeNotification(int category, const cPolymorphic *de
 
 	if (category==NF_IPv6_TUNNEL_ADDED)
 	{
-		EV << "NEW address obtained " << adrInfo << endl;
+		cout << "NEW address obtained by MN/HA/CN "<<isMN<<isHA<<isCN<<": " << adrInfo->getEntry().str().c_str() << endl;
 		if (!isAdrInVec(adraux)){
 			adrsAvailable.push_back(adraux);
 			lenAdrs++;
 			if (!adraux.mSrc.isUnspecified()){
 				adraux.sockID= MCoAUDPBase::bindToPort(localPort, adraux.mSrc);
 			}
-			EV << "MCoAUDPBase address " <<  adraux.mSrc << " added sucessfully len=" << lenAdrs << endl;
+			cout << "MCoAUDPBase address " <<  adraux.mSrc << " added sucessfully len=" << lenAdrs << endl;
 		}else{
-			EV << "Address is already in vector not adding" << endl;
+			cout << "Address is already in vector not adding" << endl;
 		}
 
 
 	}else if (category==NF_IPv6_TUNNEL_DELETED){
-		EV << "Address to be removed obtained" << endl;
+		cout << "Address to be removed obtained" << endl;
 		if (markAsdelAdrInVec(adraux)){
 			lenAdrs--;
 			lenAdrs <0 ? lenAdrs=0 : lenAdrs ;
-			EV << "Entry removed successfully now with " << lenAdrs << " addresses!" << endl;
+			cout << "Entry removed successfully now with " << lenAdrs << " addresses!" << endl;
 			if (!adraux.mSrc.isUnspecified()){
 
 				cMessage *DelAdrPair = new cMessage("MCoAUDPBase_delAdr", MK_REMOVE_ADDRESS_PAIR);

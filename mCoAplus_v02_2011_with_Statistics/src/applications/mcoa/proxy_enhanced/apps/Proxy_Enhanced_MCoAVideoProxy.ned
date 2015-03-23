@@ -42,6 +42,10 @@ simple Proxy_Enhanced_MCoAVideoProxy like MCoAUDPBase
     	
     	//FOR PROXY_UNLOADING FJ
     	double startTime = default(10);//start Proxying Process at StartTime
+    	
+    	bool isCN;
+    	bool isMN;
+    	bool isHA;
     
     	
     gates:

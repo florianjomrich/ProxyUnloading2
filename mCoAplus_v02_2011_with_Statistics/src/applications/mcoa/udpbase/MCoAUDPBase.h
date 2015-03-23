@@ -59,6 +59,11 @@ protected:
 	bool useMCoA;
 	bool isDestiny;
 
+	//PROXY UNLOADING
+	bool isCN;
+	bool isHA;
+	bool isMN;
+
   public:
 	MCoAUDPBase();
 	~MCoAUDPBase();

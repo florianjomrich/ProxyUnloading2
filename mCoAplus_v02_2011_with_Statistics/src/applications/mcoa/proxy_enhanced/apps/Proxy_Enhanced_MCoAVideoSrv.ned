@@ -51,6 +51,12 @@ simple Proxy_Enhanced_MCoAVideoSrv like MCoAUDPBase
     	bool isDestiny = default(true); //If it is destiny (ony replies to messages).
     	
     	double startTime @unit("s") = default(0s);
+    	
+    	//PROXY UNLOADING 
+    	  	bool isCN;
+    	bool isMN;
+    	bool isHA;
+    	
     gates:
         input udpIn;
         output udpOut;
