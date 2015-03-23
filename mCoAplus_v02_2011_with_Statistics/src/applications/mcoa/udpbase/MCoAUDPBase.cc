@@ -164,7 +164,7 @@ void MCoAUDPBase::sendToUDPMCOA(cPacket *msg, int srcPort, const IPvXAddress& de
 
     AdrInfo auxadr;
 
-    if (!useMCoA || lenAdrs == 0) { // || isMN //VERSUCH den MN direkt senden zu lassen ????
+    if (!useMCoA || lenAdrs == 0) { // || MN //VERSUCH den MN direkt senden zu lassen ????
     	/*if (appendCtrlInfo){
 			UDPControlInfo *ctrl = new UDPControlInfo();
 			ctrl->setSrcPort(srcPort);
@@ -203,7 +203,12 @@ void MCoAUDPBase::sendToUDPMCOA(cPacket *msg, int srcPort, const IPvXAddress& de
 							cPacket *msg1 = msg->dup();
 						cout << "MCoAUDPBase in Sending node duplicating message for source adr " << it->mSrc << endl;
 							//Please note dup objects need to add controlinfo.
-							sendToUDP(msg1, it->mSrc, srcPort, it->mDest, destPort , true);
+						if(!isMN){
+						    sendToUDP(msg1, it->mSrc, srcPort, it->mDest, destPort , true);
+						}
+						if(isMN){
+						    sendToUDP(msg1, it->mSrc, srcPort, destAddr, destPort , true);
+						}
 							sentMsg= true;
 						}
 					}
