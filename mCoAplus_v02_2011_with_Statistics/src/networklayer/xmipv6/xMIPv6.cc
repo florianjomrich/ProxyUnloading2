@@ -1474,7 +1474,7 @@ void xMIPv6::updateBUL(BindingUpdate* bu, KeyMCoABind &keyMCoA,  const IPv6Addre
     //send only once to the HA - to not increase the traffic over the air gap !!!!
     IPvXAddress ha = IPAddressResolver().resolve("HA");
     if(dest==ha.get6()){
-        cout<<"MN sendet eine einzelne BU Nachricht an den HA"<<endl;
+        cout<<"MN sendet eine einzelne FlowBindingUpdate Nachricht an den HA"<<endl;
 
         FlowBindingUpdate* newFlowBindingUpdateToSend = new FlowBindingUpdate();
         newFlowBindingUpdateToSend->setHomeAddress(bu->getHomeAddressMN().str().c_str());

@@ -89,13 +89,13 @@ void Proxy_Enhanced_MCoAVideoCli::handleMessage(cMessage* msg)
     }
     else
     {
-    	if (dynamic_cast<MCoAVideoStreaming*>(msg)){
-    		receiveStream(PK(msg));
-    	}
+
 
     	if(dynamic_cast<VideoMessage*>(msg)){
     	    cout<<"Video Message received by Mobile Node"<<endl;
     	    IPvXAddress cn = IPAddressResolver().resolve("CN[0]");
+    	    //cout<<"CNs Adress: "<<cn<<endl;
+    	    cout<<"Neuer Video-Request wird gesendet"<<endl;
     	    RequestVideoStream* requestVideoStream = new RequestVideoStream();
     	       requestVideoStream->setName("MCoACli (MN) requests Video Stream from MCoASrv (CN).");
 
