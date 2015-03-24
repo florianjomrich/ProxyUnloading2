@@ -285,14 +285,14 @@ void xMIPv6::processMobilityMessage(MobilityHeader* mipv6Msg, IPv6ControlInfo* c
 		cout <<"Message recognised as BINDING UPDATE (BU) From: " << ctrlInfo->getSrcAddr() << "  to: " << ctrlInfo->getDestAddr()  << endl;
 		//EV << "\n<<<<<<<<Giving Control to processBUMessage()>>>>>>>\n";
 
-	     IPvXAddress mn0 = IPAddressResolver().resolve("MN[0]");
+	   /*  IPvXAddress mn0 = IPAddressResolver().resolve("MN[0]");
 	        IPvXAddress mn1 = IPAddressResolver().resolve("MN[1]");
 	         IPvXAddress ha = IPAddressResolver().resolve("HA");
 	         IPvXAddress cn = IPAddressResolver().resolve("CN[0]");
 	     cout<<"MN0 - after Binding Update 2:"<<mn0 <<endl;
 	     cout<<"MN1 - after Binding Update 2:"<<mn1 <<endl;
 	     cout<<"HA - after Binding Update 2:"<<ha<<endl;
-	     cout<<"CN - after Binding Update 2:"<<cn<<endl;
+	     cout<<"CN - after Binding Update 2:"<<cn<<endl; */
 
 		BindingUpdate *bu = (BindingUpdate*) mipv6Msg;
 		processBUMessage(bu, ctrlInfo);
@@ -733,7 +733,7 @@ void xMIPv6::MCoAcreateBUTimer(KeyMCoABind &keyMCoA, const IPv6Address& buDest,I
 
 void xMIPv6::createBUTimer( KeyMCoABind &keyMCoA, const IPv6Address& buDest, InterfaceEntry* ie)
 {
-	cout << "[MCOA] BUTimer Bu Timer for " << keyMCoA.getDestBID() << ", BID:" << keyMCoA.getBID() << " with CoA =" << keyMCoA.getAddr() << "?=" << buDest << endl;
+	//cout << "[MCOA] BUTimer Bu Timer for " << keyMCoA.getDestBID() << ", BID:" << keyMCoA.getBID() << " with CoA =" << keyMCoA.getAddr() << "?=" << buDest << endl;
 
 
 	//if (keyMCoA.getAddr() == ie->ipv6Data()->getMNHomeAddress()){

@@ -272,7 +272,7 @@ void MCoAUDPBase::TrysendToUDPMCOA(cPacket *msg, int srcPort, const IPvXAddress&
 		msg->setControlInfo(ctrl);
 		//cout<<"CONTROL INFO HINZUFÜGEN: "<<msg->getName()<<endl;
 	}
-	cout << "Sending packet: ";
+	EV << "Sending packet: ";
 	printPacket(msg);
 
 	send(msg, "udpOut");

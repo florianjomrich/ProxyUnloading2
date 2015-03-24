@@ -670,7 +670,7 @@ void IPv6::isLocalAddress(IPv6Datagram *datagram, bool isTunnelled) {
                    IPv6Address* neueAdresse = new IPv6Address("1111:111::1111:111");/// ????
                                   // datagram->setSrcAddress(*neueAdresse); // hierüber ersetzt man die IP-Adresse nach oben hin zum UDP-
               }
-                           cout<<"SOURCE ADRESSE ="<<datagram->getSrcAddress()<<endl;
+                           //cout<<"SOURCE ADRESSE ="<<datagram->getSrcAddress()<<endl;
               }
 
 
