@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgc 4.4 from applications/mcoa/proxy_enhanced/RequetConnectionToLegacyServer.msg.
+// Generated file, do not edit! Created by opp_msgc 4.4 from applications/mcoa/proxy_enhanced/messages/control_messages/RequetConnectionToLegacyServer.msg.
 //
 
 #ifndef _REQUETCONNECTIONTOLEGACYSERVER_M_H_
@@ -16,7 +16,7 @@
 
 
 /**
- * Class generated from <tt>applications/mcoa/proxy_enhanced/RequetConnectionToLegacyServer.msg</tt> by opp_msgc.
+ * Class generated from <tt>applications/mcoa/proxy_enhanced/messages/control_messages/RequetConnectionToLegacyServer.msg</tt> by opp_msgc.
  * <pre>
  * packet RequetConnectionToLegacyServer {
  *     int SrcPort;
@@ -46,7 +46,7 @@ class RequetConnectionToLegacyServer : public ::cPacket
     bool operator==(const RequetConnectionToLegacyServer&);
 
   public:
-    RequetConnectionToLegacyServer(const char *name="REQUEST_FOR_CONNECTION_TO_LEGACY_SERVER", int kind=0);
+    RequetConnectionToLegacyServer(const char *name=NULL, int kind=0);
     RequetConnectionToLegacyServer(const RequetConnectionToLegacyServer& other);
     virtual ~RequetConnectionToLegacyServer();
     RequetConnectionToLegacyServer& operator=(const RequetConnectionToLegacyServer& other);
