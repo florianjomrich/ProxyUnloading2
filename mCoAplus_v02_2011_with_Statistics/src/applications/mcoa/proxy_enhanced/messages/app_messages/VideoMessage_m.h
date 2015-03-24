@@ -19,6 +19,7 @@
  * Class generated from <tt>applications/mcoa/proxy_enhanced/messages/app_messages/VideoMessage.msg</tt> by opp_msgc.
  * <pre>
  * packet VideoMessage {
+ *     int sequenceNumber;
  *     int someField;
  *     string anotherField;
  *     double arrayField1[];
@@ -29,6 +30,7 @@
 class VideoMessage : public ::cPacket
 {
   protected:
+    int sequenceNumber_var;
     int someField_var;
     opp_string anotherField_var;
     double *arrayField1_var; // array ptr
@@ -52,6 +54,8 @@ class VideoMessage : public ::cPacket
     virtual void parsimUnpack(cCommBuffer *b);
 
     // field getter/setter methods
+    virtual int getSequenceNumber() const;
+    virtual void setSequenceNumber(int sequenceNumber);
     virtual int getSomeField() const;
     virtual void setSomeField(int someField);
     virtual const char * getAnotherField() const;

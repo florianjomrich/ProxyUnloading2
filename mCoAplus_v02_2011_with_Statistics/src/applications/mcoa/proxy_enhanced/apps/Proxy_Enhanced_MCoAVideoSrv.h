@@ -53,6 +53,10 @@ protected:
     cPar *videoSize;
 
     cOutVector PktSent;
+
+    //ProxyUnloading FJ
+    int seq_number_counter;
+
 public:
 
     Proxy_Enhanced_MCoAVideoSrv();

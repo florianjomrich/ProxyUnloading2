@@ -36,6 +36,7 @@ Register_Class(RequestVideoStream);
 
 RequestVideoStream::RequestVideoStream(const char *name, int kind) : ::cPacket(name,kind)
 {
+    this->sequenceNumber_var = 0;
 }
 
 RequestVideoStream::RequestVideoStream(const RequestVideoStream& other) : ::cPacket(other)
@@ -57,16 +58,29 @@ RequestVideoStream& RequestVideoStream::operator=(const RequestVideoStream& othe
 
 void RequestVideoStream::copy(const RequestVideoStream& other)
 {
+    this->sequenceNumber_var = other.sequenceNumber_var;
 }
 
 void RequestVideoStream::parsimPack(cCommBuffer *b)
 {
     ::cPacket::parsimPack(b);
+    doPacking(b,this->sequenceNumber_var);
 }
 
 void RequestVideoStream::parsimUnpack(cCommBuffer *b)
 {
     ::cPacket::parsimUnpack(b);
+    doUnpacking(b,this->sequenceNumber_var);
+}
+
+int RequestVideoStream::getSequenceNumber() const
+{
+    return sequenceNumber_var;
+}
+
+void RequestVideoStream::setSequenceNumber(int sequenceNumber)
+{
+    this->sequenceNumber_var = sequenceNumber;
 }
 
 class RequestVideoStreamDescriptor : public cClassDescriptor
@@ -116,7 +130,7 @@ const char *RequestVideoStreamDescriptor::getProperty(const char *propertyname) 
 int RequestVideoStreamDescriptor::getFieldCount(void *object) const
 {
     cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 0+basedesc->getFieldCount(object) : 0;
+    return basedesc ? 1+basedesc->getFieldCount(object) : 1;
 }
 
 unsigned int RequestVideoStreamDescriptor::getFieldTypeFlags(void *object, int field) const
@@ -127,7 +141,10 @@ unsigned int RequestVideoStreamDescriptor::getFieldTypeFlags(void *object, int f
             return basedesc->getFieldTypeFlags(object, field);
         field -= basedesc->getFieldCount(object);
     }
-    return 0;
+    static unsigned int fieldTypeFlags[] = {
+        FD_ISEDITABLE,
+    };
+    return (field>=0 && field<1) ? fieldTypeFlags[field] : 0;
 }
 
 const char *RequestVideoStreamDescriptor::getFieldName(void *object, int field) const
@@ -138,12 +155,17 @@ const char *RequestVideoStreamDescriptor::getFieldName(void *object, int field) 
             return basedesc->getFieldName(object, field);
         field -= basedesc->getFieldCount(object);
     }
-    return NULL;
+    static const char *fieldNames[] = {
+        "sequenceNumber",
+    };
+    return (field>=0 && field<1) ? fieldNames[field] : NULL;
 }
 
 int RequestVideoStreamDescriptor::findField(void *object, const char *fieldName) const
 {
     cClassDescriptor *basedesc = getBaseClassDescriptor();
+    int base = basedesc ? basedesc->getFieldCount(object) : 0;
+    if (fieldName[0]=='s' && strcmp(fieldName, "sequenceNumber")==0) return base+0;
     return basedesc ? basedesc->findField(object, fieldName) : -1;
 }
 
@@ -155,7 +177,10 @@ const char *RequestVideoStreamDescriptor::getFieldTypeString(void *object, int f
             return basedesc->getFieldTypeString(object, field);
         field -= basedesc->getFieldCount(object);
     }
-    return NULL;
+    static const char *fieldTypeStrings[] = {
+        "int",
+    };
+    return (field>=0 && field<1) ? fieldTypeStrings[field] : NULL;
 }
 
 const char *RequestVideoStreamDescriptor::getFieldProperty(void *object, int field, const char *propertyname) const
@@ -195,6 +220,7 @@ std::string RequestVideoStreamDescriptor::getFieldAsString(void *object, int fie
     }
     RequestVideoStream *pp = (RequestVideoStream *)object; (void)pp;
     switch (field) {
+        case 0: return long2string(pp->getSequenceNumber());
         default: return "";
     }
 }
@@ -209,6 +235,7 @@ bool RequestVideoStreamDescriptor::setFieldAsString(void *object, int field, int
     }
     RequestVideoStream *pp = (RequestVideoStream *)object; (void)pp;
     switch (field) {
+        case 0: pp->setSequenceNumber(string2long(value)); return true;
         default: return false;
     }
 }
@@ -221,7 +248,10 @@ const char *RequestVideoStreamDescriptor::getFieldStructName(void *object, int f
             return basedesc->getFieldStructName(object, field);
         field -= basedesc->getFieldCount(object);
     }
-    return NULL;
+    static const char *fieldStructNames[] = {
+        NULL,
+    };
+    return (field>=0 && field<1) ? fieldStructNames[field] : NULL;
 }
 
 void *RequestVideoStreamDescriptor::getFieldStructPointer(void *object, int field, int i) const

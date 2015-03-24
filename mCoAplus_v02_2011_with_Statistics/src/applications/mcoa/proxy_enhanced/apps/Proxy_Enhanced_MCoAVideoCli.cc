@@ -41,6 +41,7 @@ void Proxy_Enhanced_MCoAVideoCli::initialize()
     //PROXY UNLOADING FJ
     cout<<"Initializing Proxy_Enhanced_MCoAVideoCli module"<<endl;
     startTime = par("startTime");
+    seq_number_counter=0;
 
 
 	MCoAUDPBase::startMCoAUDPBase();
@@ -92,14 +93,25 @@ void Proxy_Enhanced_MCoAVideoCli::handleMessage(cMessage* msg)
 
 
     	if(dynamic_cast<VideoMessage*>(msg)){
-    	    cout<<"MCoAClient: Video Message from Server is bei MN eingegangen"<<endl;
-    	    IPvXAddress cn = IPAddressResolver().resolve("CN[0]");
-    	    //cout<<"CNs Adress: "<<cn<<endl;
-    	    cout<<"MCoAClient: Neuer Video-Request wird gesendet"<<endl;
-    	    RequestVideoStream* requestVideoStream = new RequestVideoStream();
-    	       requestVideoStream->setName("MCoACli (MN) requests Video Stream from MCoASrv (CN).");
 
-    	       sendToUDPMCOA(requestVideoStream, localPort, cn, 1000, true);//Port 1000 für Video - Port 2000 für Kontrolldaten)
+    	    VideoMessage* currentVideoMessage = dynamic_cast<VideoMessage*>(msg);
+    	    cout<<"MCoAClient: Video Message from Server is bei MN eingegangen mit Sequenz-Nummer: "<<currentVideoMessage->getSequenceNumber()<<endl;
+    	    if(currentVideoMessage->getSequenceNumber()>=seq_number_counter){
+
+    	        IPvXAddress cn = IPAddressResolver().resolve("CN[0]");
+                //cout<<"CNs Adress: "<<cn<<endl;
+                cout<<"MCoAClient: Neuer Video-Request wird gesendet"<<endl;
+                RequestVideoStream* requestVideoStream = new RequestVideoStream();
+                requestVideoStream->setName("MCoACli (MN) requests Video Stream from MCoASrv (CN).");
+                requestVideoStream->setSequenceNumber(seq_number_counter);
+                sendToUDPMCOA(requestVideoStream, localPort, cn, 1000, true);//Port 1000 für Video - Port 2000 für Kontrolldaten)
+
+                seq_number_counter++;
+                return;
+    	    }
+    	    cout<<"Sequenz Nummer war bereits zu klein"<<endl;
+
+
     	}
 
     	else{

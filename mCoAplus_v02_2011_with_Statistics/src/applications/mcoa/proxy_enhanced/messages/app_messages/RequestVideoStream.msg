@@ -17,6 +17,7 @@
 // TODO generated message class
 //
 packet RequestVideoStream {
+    int sequenceNumber;
   // int someField;
   // string anotherField;
   //  double arrayField1[];

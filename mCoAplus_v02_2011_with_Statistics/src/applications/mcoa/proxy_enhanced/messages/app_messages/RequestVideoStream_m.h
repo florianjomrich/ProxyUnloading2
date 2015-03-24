@@ -19,6 +19,7 @@
  * Class generated from <tt>applications/mcoa/proxy_enhanced/messages/app_messages/RequestVideoStream.msg</tt> by opp_msgc.
  * <pre>
  * packet RequestVideoStream {
+ *     int sequenceNumber;
  *   
  *   
  *   
@@ -29,6 +30,7 @@
 class RequestVideoStream : public ::cPacket
 {
   protected:
+    int sequenceNumber_var;
 
   private:
     void copy(const RequestVideoStream& other);
@@ -47,6 +49,8 @@ class RequestVideoStream : public ::cPacket
     virtual void parsimUnpack(cCommBuffer *b);
 
     // field getter/setter methods
+    virtual int getSequenceNumber() const;
+    virtual void setSequenceNumber(int sequenceNumber);
 };
 
 inline void doPacking(cCommBuffer *b, RequestVideoStream& obj) {obj.parsimPack(b);}

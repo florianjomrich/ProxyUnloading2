@@ -50,6 +50,8 @@ void Proxy_Enhanced_MCoAVideoProxy::initialize()
     cout<<"LOCAL PORT:"<<localPort <<endl;
     bindToPort(localPort);
 
+
+
    /* if (startTime>=0){
         cMessage *start_proxying_context = new cMessage("Starting_Proxying_Context");
         //timer->setContextPointer(d);

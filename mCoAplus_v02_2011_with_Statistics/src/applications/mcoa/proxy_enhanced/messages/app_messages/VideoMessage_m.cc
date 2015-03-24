@@ -36,6 +36,7 @@ Register_Class(VideoMessage);
 
 VideoMessage::VideoMessage(const char *name, int kind) : ::cPacket(name,kind)
 {
+    this->sequenceNumber_var = 0;
     this->someField_var = 0;
     this->anotherField_var = 0;
     arrayField1_arraysize = 0;
@@ -66,6 +67,7 @@ VideoMessage& VideoMessage::operator=(const VideoMessage& other)
 
 void VideoMessage::copy(const VideoMessage& other)
 {
+    this->sequenceNumber_var = other.sequenceNumber_var;
     this->someField_var = other.someField_var;
     this->anotherField_var = other.anotherField_var;
     delete [] this->arrayField1_var;
@@ -80,6 +82,7 @@ void VideoMessage::copy(const VideoMessage& other)
 void VideoMessage::parsimPack(cCommBuffer *b)
 {
     ::cPacket::parsimPack(b);
+    doPacking(b,this->sequenceNumber_var);
     doPacking(b,this->someField_var);
     doPacking(b,this->anotherField_var);
     b->pack(arrayField1_arraysize);
@@ -90,6 +93,7 @@ void VideoMessage::parsimPack(cCommBuffer *b)
 void VideoMessage::parsimUnpack(cCommBuffer *b)
 {
     ::cPacket::parsimUnpack(b);
+    doUnpacking(b,this->sequenceNumber_var);
     doUnpacking(b,this->someField_var);
     doUnpacking(b,this->anotherField_var);
     delete [] this->arrayField1_var;
@@ -101,6 +105,16 @@ void VideoMessage::parsimUnpack(cCommBuffer *b)
         doUnpacking(b,this->arrayField1_var,arrayField1_arraysize);
     }
     doUnpacking(b,this->arrayField2_var,10);
+}
+
+int VideoMessage::getSequenceNumber() const
+{
+    return sequenceNumber_var;
+}
+
+void VideoMessage::setSequenceNumber(int sequenceNumber)
+{
+    this->sequenceNumber_var = sequenceNumber;
 }
 
 int VideoMessage::getSomeField() const
@@ -217,7 +231,7 @@ const char *VideoMessageDescriptor::getProperty(const char *propertyname) const
 int VideoMessageDescriptor::getFieldCount(void *object) const
 {
     cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 4+basedesc->getFieldCount(object) : 4;
+    return basedesc ? 5+basedesc->getFieldCount(object) : 5;
 }
 
 unsigned int VideoMessageDescriptor::getFieldTypeFlags(void *object, int field) const
@@ -231,10 +245,11 @@ unsigned int VideoMessageDescriptor::getFieldTypeFlags(void *object, int field) 
     static unsigned int fieldTypeFlags[] = {
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISEDITABLE,
         FD_ISARRAY | FD_ISEDITABLE,
         FD_ISARRAY | FD_ISEDITABLE,
     };
-    return (field>=0 && field<4) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<5) ? fieldTypeFlags[field] : 0;
 }
 
 const char *VideoMessageDescriptor::getFieldName(void *object, int field) const
@@ -246,22 +261,24 @@ const char *VideoMessageDescriptor::getFieldName(void *object, int field) const
         field -= basedesc->getFieldCount(object);
     }
     static const char *fieldNames[] = {
+        "sequenceNumber",
         "someField",
         "anotherField",
         "arrayField1",
         "arrayField2",
     };
-    return (field>=0 && field<4) ? fieldNames[field] : NULL;
+    return (field>=0 && field<5) ? fieldNames[field] : NULL;
 }
 
 int VideoMessageDescriptor::findField(void *object, const char *fieldName) const
 {
     cClassDescriptor *basedesc = getBaseClassDescriptor();
     int base = basedesc ? basedesc->getFieldCount(object) : 0;
-    if (fieldName[0]=='s' && strcmp(fieldName, "someField")==0) return base+0;
-    if (fieldName[0]=='a' && strcmp(fieldName, "anotherField")==0) return base+1;
-    if (fieldName[0]=='a' && strcmp(fieldName, "arrayField1")==0) return base+2;
-    if (fieldName[0]=='a' && strcmp(fieldName, "arrayField2")==0) return base+3;
+    if (fieldName[0]=='s' && strcmp(fieldName, "sequenceNumber")==0) return base+0;
+    if (fieldName[0]=='s' && strcmp(fieldName, "someField")==0) return base+1;
+    if (fieldName[0]=='a' && strcmp(fieldName, "anotherField")==0) return base+2;
+    if (fieldName[0]=='a' && strcmp(fieldName, "arrayField1")==0) return base+3;
+    if (fieldName[0]=='a' && strcmp(fieldName, "arrayField2")==0) return base+4;
     return basedesc ? basedesc->findField(object, fieldName) : -1;
 }
 
@@ -275,11 +292,12 @@ const char *VideoMessageDescriptor::getFieldTypeString(void *object, int field) 
     }
     static const char *fieldTypeStrings[] = {
         "int",
+        "int",
         "string",
         "double",
         "double",
     };
-    return (field>=0 && field<4) ? fieldTypeStrings[field] : NULL;
+    return (field>=0 && field<5) ? fieldTypeStrings[field] : NULL;
 }
 
 const char *VideoMessageDescriptor::getFieldProperty(void *object, int field, const char *propertyname) const
@@ -305,8 +323,8 @@ int VideoMessageDescriptor::getArraySize(void *object, int field) const
     }
     VideoMessage *pp = (VideoMessage *)object; (void)pp;
     switch (field) {
-        case 2: return pp->getArrayField1ArraySize();
-        case 3: return 10;
+        case 3: return pp->getArrayField1ArraySize();
+        case 4: return 10;
         default: return 0;
     }
 }
@@ -321,10 +339,11 @@ std::string VideoMessageDescriptor::getFieldAsString(void *object, int field, in
     }
     VideoMessage *pp = (VideoMessage *)object; (void)pp;
     switch (field) {
-        case 0: return long2string(pp->getSomeField());
-        case 1: return oppstring2string(pp->getAnotherField());
-        case 2: return double2string(pp->getArrayField1(i));
-        case 3: return double2string(pp->getArrayField2(i));
+        case 0: return long2string(pp->getSequenceNumber());
+        case 1: return long2string(pp->getSomeField());
+        case 2: return oppstring2string(pp->getAnotherField());
+        case 3: return double2string(pp->getArrayField1(i));
+        case 4: return double2string(pp->getArrayField2(i));
         default: return "";
     }
 }
@@ -339,10 +358,11 @@ bool VideoMessageDescriptor::setFieldAsString(void *object, int field, int i, co
     }
     VideoMessage *pp = (VideoMessage *)object; (void)pp;
     switch (field) {
-        case 0: pp->setSomeField(string2long(value)); return true;
-        case 1: pp->setAnotherField((value)); return true;
-        case 2: pp->setArrayField1(i,string2double(value)); return true;
-        case 3: pp->setArrayField2(i,string2double(value)); return true;
+        case 0: pp->setSequenceNumber(string2long(value)); return true;
+        case 1: pp->setSomeField(string2long(value)); return true;
+        case 2: pp->setAnotherField((value)); return true;
+        case 3: pp->setArrayField1(i,string2double(value)); return true;
+        case 4: pp->setArrayField2(i,string2double(value)); return true;
         default: return false;
     }
 }
@@ -360,8 +380,9 @@ const char *VideoMessageDescriptor::getFieldStructName(void *object, int field) 
         NULL,
         NULL,
         NULL,
+        NULL,
     };
-    return (field>=0 && field<4) ? fieldStructNames[field] : NULL;
+    return (field>=0 && field<5) ? fieldStructNames[field] : NULL;
 }
 
 void *VideoMessageDescriptor::getFieldStructPointer(void *object, int field, int i) const
